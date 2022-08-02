@@ -22,6 +22,18 @@ const App = () => {
       )
   }, [])
 
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedBloglistUser')
+
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      blogService.setToken(user.token)
+    }
+
+  }, [])
+
+
   // sets success message in status
   // after three seconds clears the message
   const showSuccessMessage = (message) => {
@@ -48,6 +60,11 @@ const App = () => {
       const user = await loginService.login({
         username, password,
       })
+
+      window.localStorage.setItem(
+        'loggedBloglistUser', JSON.stringify(user)
+      )
+
       blogService.setToken(user.token)
       setUser(user)
       setUsername('')
@@ -56,6 +73,22 @@ const App = () => {
     } catch (exception) {
       showErrorMessage('wrong credentials')
     }
+  }
+
+  const handleLogout = async (event) => {
+    event.preventDefault()
+
+    try {
+      showSuccessMessage(`Goodbye ${user.name}`)
+      window.localStorage.clear()
+      blogService.setToken(null)
+      setUser(null)
+      setUsername('')
+      setPassword('')
+    } catch (exception) {
+      showErrorMessage('something went wrong, try to logout again')
+    }
+
   }
 
   const loginForm = () => (
@@ -117,6 +150,9 @@ const App = () => {
         ) :
         (<div>
           <p> {user.name} logged in </p>
+          <button onClick={handleLogout}>
+            logout
+          </button>
           { blogForm() }
         </div>
         )
