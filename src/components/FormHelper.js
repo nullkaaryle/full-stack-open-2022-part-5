@@ -3,6 +3,7 @@
 export const Button = (props) => (
   <p>
     <button
+      style={props.style}
       type={props.type}
       onClick={props.onClick}>
       {props.text}

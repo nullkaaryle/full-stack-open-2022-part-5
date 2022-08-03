@@ -145,7 +145,7 @@ const App = () => {
 
   const showBlogs = () => (
     <div>
-      <h3> All blogs</h3>
+      <h3> Click blog name for more details</h3>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
