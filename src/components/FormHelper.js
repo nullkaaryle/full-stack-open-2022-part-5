@@ -2,6 +2,7 @@
 // helper for buttons
 export const Button = (props) => (
   <button
+    className={props.className}
     style={props.style}
     type={props.type}
     onClick={props.onClick}>

@@ -1,74 +1,49 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from './FormHelper'
 import blogService from '../services/blogs'
 
 
-export const Blog = ({ blog }) => {
+export const Blog = ({ blog, showSuccessMessage, showErrorMessage, user, removeBlog }) => {
 
   const [detailsShown, setDetailsShown] = useState(false)
   const toggleShowBlogDetails = () => setDetailsShown(!detailsShown)
   const [updatedLikes, setLikes] = useState(blog.likes)
+  const [userIsBlogOwner, setUserIsBlogOwner] = useState(false)
+
+  useEffect(() => {
+    setUserIsBlogOwner(user.username === blog.user.username)
+  }, [user.username, blog.user.username])
 
 
-  const findBlogAddUser = async (blogId) => {
-    console.log('teen tämän aina')
-    const allBlogs = await blogService.getAll()
-    const blogToUpdate = allBlogs.find(n => n.id === blogId)
-
-    return (
-      { ...blogToUpdate, user: blogToUpdate.user.id }
-    )
-  }
-
-  const addLike = (blogId) => {
-    const blogWithUser = findBlogAddUser(blogId)
-
+  const addLike = (blog) => {
     blogService
-      .updateLike(blogId, blogWithUser)
+      .updateLike(blog.id, blog)
       .then(returnedBlog => {
         setLikes(returnedBlog.likes)
-        console.log(`You liked blog ${returnedBlog.title} which has now ${returnedBlog.likes} likes `)
+        showSuccessMessage(`You liked blog "${returnedBlog.title}" which has now ${returnedBlog.likes} likes in total!`)
       })
       .catch(error => {
-        console.log('something went wrong, please log in')
+        showErrorMessage('sorry, something went wrong: ' + error.response.data.error)
       })
-  }
-
-  const blogButtonStyle = {
-    borderRadius: '10px',
-    cursor: 'pointer',
-    width: '75%',
-    textAlign: 'left',
-    fontSize: '16px',
-  }
-
-  const likeButtonStyle = {
-    cursor: 'pointer'
   }
 
   const RenderBlogDetails = ({ blog }) => {
+    const renderAuthor = <li> <b>Author: </b> {blog.author} </li>
+    const renderUrl = <li> <b> Url: </b> <a href={blog.url}> {blog.url} </a> </li>
+    const renderLikesAndLikeButton = <li> <b> Likes: </b> {updatedLikes} {' '} <Button className='likeButton' onClick={() => addLike(blog)} text=' LIKE ' /> </li>
+    const renderBlogUser = <li> <b> This blog was added by: </b> {blog.user.name} </li>
+    const renderRemoveButton = <p> <Button className='deleteButton' onClick={() => removeBlog(blog)} text=' REMOVE ' /> </p>
+
     return (
       <div>
         <ul>
-          <li>
-            <b>Author: </b> {blog.author}
-          </li>
-          <li>
-            <b>Url: </b> <a href={blog.url}> {blog.url} </a>
-          </li>
-          <li>
-            <b>Likes: </b> {updatedLikes} {' '}
-            <Button
-              style={likeButtonStyle}
-              onClick={() => addLike(blog.id)}
-              text=' like '
-            />
-          </li>
-          <li>
-            <b>This blog was added by: </b> {blog.user.name}
-          </li>
+          {renderAuthor}
+          {renderUrl}
+          {renderLikesAndLikeButton}
+          {renderBlogUser}
+          {userIsBlogOwner && renderRemoveButton}
         </ul>
-      </div>
+      </div >
     )
   }
 
@@ -76,14 +51,16 @@ export const Blog = ({ blog }) => {
   return (
     <div>
       <Button
-        style={blogButtonStyle}
+        className='blogButton'
         onClick={toggleShowBlogDetails}
         text={blog.title}
       />
 
-      {detailsShown && <RenderBlogDetails key={blog.title} blog={blog} />}
+      {detailsShown && <RenderBlogDetails key={blog.id} blog={blog} />}
 
     </div >
   )
 }
+
+
 
