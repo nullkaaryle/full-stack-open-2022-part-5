@@ -37,6 +37,10 @@ export const BlogForm = ({ createBlog }) => {
     resetInputFields()
   }
 
+  const buttonStyle = {
+    cursor: 'pointer'
+  }
+
 
   return (
     <div>
@@ -70,6 +74,7 @@ export const BlogForm = ({ createBlog }) => {
         />
 
         <Button
+          style={buttonStyle}
           type='submit'
           text='SAVE BLOG'
         />

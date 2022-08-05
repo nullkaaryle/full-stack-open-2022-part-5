@@ -26,6 +26,10 @@ export const LoginForm = ({ loginHelper }) => {
     setPassword('')
   }
 
+  const buttonStyle = {
+    cursor: 'pointer'
+  }
+
   return (
     <div>
       <h2>Login</h2>
@@ -48,6 +52,7 @@ export const LoginForm = ({ loginHelper }) => {
         />
 
         <Button
+          style={buttonStyle}
           type='submit'
           text='login'
         />

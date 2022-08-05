@@ -22,23 +22,33 @@ export const Togglable = forwardRef((props, ref) => {
 
   useImperativeHandle(ref, () => ({ toggleVisibility }))
 
+  const buttonStyle = {
+    cursor: 'pointer'
+  }
 
   return (
     <div>
 
       <div style={hideWhenVisible}>
-        <Button
-          onClick={toggleVisibility}
-          text={props.buttonLabel}
-        />
+        <p>
+          <Button
+            style={buttonStyle}
+            onClick={toggleVisibility}
+            text={props.buttonLabel}
+          />
+        </p>
       </div>
 
       <div style={showWhenVisible}>
+
         {props.children}
-        <Button
-          onClick={toggleVisibility}
-          text='close'
-        />
+        <p>
+          <Button
+            style={buttonStyle}
+            onClick={toggleVisibility}
+            text='close'
+          />
+        </p>
       </div>
 
     </div>

@@ -1,42 +1,82 @@
 import { useState } from 'react'
 import { Button } from './FormHelper'
+import blogService from '../services/blogs'
 
-// defines how the individual blogs are rendered in the list
-// uses detailsShown boolean as a check
-// if also the blog details should be shown in the list
-// user toggles the blog details by pressing a button
+
 export const Blog = ({ blog }) => {
 
   const [detailsShown, setDetailsShown] = useState(false)
   const toggleShowBlogDetails = () => setDetailsShown(!detailsShown)
+  const [updatedLikes, setLikes] = useState(blog.likes)
 
-  const blogStyle = {
+
+  const findBlogAddUser = async (blogId) => {
+    console.log('teen tämän aina')
+    const allBlogs = await blogService.getAll()
+    const blogToUpdate = allBlogs.find(n => n.id === blogId)
+
+    return (
+      { ...blogToUpdate, user: blogToUpdate.user.id }
+    )
+  }
+
+  const addLike = (blogId) => {
+    const blogWithUser = findBlogAddUser(blogId)
+
+    blogService
+      .updateLike(blogId, blogWithUser)
+      .then(returnedBlog => {
+        setLikes(returnedBlog.likes)
+        console.log(`You liked blog ${returnedBlog.title} which has now ${returnedBlog.likes} likes `)
+      })
+      .catch(error => {
+        console.log('something went wrong, please log in')
+      })
+  }
+
+  const blogButtonStyle = {
     borderRadius: '10px',
     cursor: 'pointer',
-    width: '100%',
+    width: '75%',
     textAlign: 'left',
     fontSize: '16px',
   }
 
+  const likeButtonStyle = {
+    cursor: 'pointer'
+  }
 
-  // renders the detailed information of one blog
   const RenderBlogDetails = ({ blog }) => {
     return (
       <div>
-        <p> <b>Author: </b> {blog.author} </p>
-        <p> <b>Url: </b> <a href={blog.url}> {blog.url} </a> </p>
-        <p> <b>Likes: </b> {blog.likes} </p>
-        <p> <b>This blog was added by: </b> {blog.user.name} </p>
-
+        <ul>
+          <li>
+            <b>Author: </b> {blog.author}
+          </li>
+          <li>
+            <b>Url: </b> <a href={blog.url}> {blog.url} </a>
+          </li>
+          <li>
+            <b>Likes: </b> {updatedLikes} {' '}
+            <Button
+              style={likeButtonStyle}
+              onClick={() => addLike(blog.id)}
+              text=' like '
+            />
+          </li>
+          <li>
+            <b>This blog was added by: </b> {blog.user.name}
+          </li>
+        </ul>
       </div>
     )
   }
 
-  return (
-    <div style={blogStyle} >
 
+  return (
+    <div>
       <Button
-        style={blogStyle}
+        style={blogButtonStyle}
         onClick={toggleShowBlogDetails}
         text={blog.title}
       />
