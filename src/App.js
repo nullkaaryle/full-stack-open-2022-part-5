@@ -12,10 +12,6 @@ import loginService from './services/login'
 
 const App = () => {
 
-  const buttonStyle = {
-    cursor: 'pointer'
-  }
-
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
@@ -160,7 +156,8 @@ const App = () => {
     <div>
       {user.name} logged in {' '}
       <Button
-        style={buttonStyle}
+        style={{ cursor: 'pointer' }}
+        type='button'
         onClick={handleLogout}
         text='LOGOUT' />
     </div>

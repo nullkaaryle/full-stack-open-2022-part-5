@@ -30,9 +30,9 @@ export const Blog = ({ blog, showSuccessMessage, showErrorMessage, user, removeB
   const RenderBlogDetails = ({ blog }) => {
     const renderAuthor = <li> <b>Author: </b> {blog.author} </li>
     const renderUrl = <li> <b> Url: </b> <a href={blog.url}> {blog.url} </a> </li>
-    const renderLikesAndLikeButton = <li> <b> Likes: </b> {updatedLikes} {' '} <Button className='likeButton' onClick={() => addLike(blog)} text=' LIKE ' /> </li>
+    const renderLikesAndLikeButton = <li> <b> Likes: </b> {updatedLikes} {' '} <Button className='likeButton' type='button' onClick={() => addLike(blog)} text=' LIKE ' /> </li>
     const renderBlogUser = <li> <b> This blog was added by: </b> {blog.user.name} </li>
-    const renderRemoveButton = <p> <Button className='deleteButton' onClick={() => removeBlog(blog)} text=' REMOVE ' /> </p>
+    const renderRemoveButton = <p> <Button className='deleteButton' type='button' onClick={() => removeBlog(blog)} text=' REMOVE ' /> </p>
 
     return (
       <div>
@@ -51,7 +51,8 @@ export const Blog = ({ blog, showSuccessMessage, showErrorMessage, user, removeB
   return (
     <div>
       <Button
-        className='blogButton'
+        className='blogTitleButton'
+        type='button'
         onClick={toggleShowBlogDetails}
         text={blog.title}
       />

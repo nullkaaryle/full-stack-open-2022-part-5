@@ -18,7 +18,7 @@
     margin-bottom: 10px;
 }
 
-.blogButton {
+.blogTitleButton {
     border-radius: 10px;
         cursor: pointer;
         width: 75%;
@@ -37,4 +37,9 @@
     border-radius: 5px;
     cursor: pointer;
     background-color: green;
+}
+
+.addButton {
+    cursor: pointer;
+    background-color: blue;
 }

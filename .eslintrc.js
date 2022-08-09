@@ -1,14 +1,23 @@
 module.exports = {
   'env': {
     'browser': true,
-    'commonjs': true,
-    'es2021': true
+    "es6": true,
+    "jest/globals": true 
   },
-  'extends': 'react-app',
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
   'parserOptions': {
+    "ecmaFeatures": {
+      "jsx": true
+    },
     'ecmaVersion': 'latest',
     'sourceType': 'module'
   },
+  "plugins": [
+    "react", "jest"
+  ],
   'rules': {
     'indent': [
       'error',
@@ -35,9 +44,16 @@ module.exports = {
       'error', { 'before': true, 'after': true }
     ],
     'no-console': 0,
+    "react/prop-types": 0,
+    "react/react-in-jsx-scope": "off",
     'eol-last': [
       'error', 'always'
     ],
     'no-unused-vars': 'warn'
-  }
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
 }
