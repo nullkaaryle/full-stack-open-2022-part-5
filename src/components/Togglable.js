@@ -29,7 +29,7 @@ export const Togglable = forwardRef((props, ref) => {
       <div style={hideWhenVisible}>
         <p>
           <Button
-            style={ { cursor: 'pointer' } }
+            style={{ cursor: 'pointer' }}
             type='button'
             onClick={toggleVisibility}
             text={props.buttonLabel}
@@ -37,7 +37,7 @@ export const Togglable = forwardRef((props, ref) => {
         </p>
       </div>
 
-      <div style={showWhenVisible}>
+      <div style={showWhenVisible} className='togglableContent'>
 
         {props.children}
         <p>

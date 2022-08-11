@@ -5,8 +5,7 @@ import { LoginForm } from './components/LoginForm'
 import { BlogForm } from './components/BlogForm'
 import { Togglable } from './components/Togglable'
 import { Button } from './components/FormHelper'
-import { ErrorNotification, SuccessNotification } from './components/Notification'
-
+import { ErrorNotification, SuccessNotification, showMessages } from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -16,6 +15,7 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
   const [successMessage, setSuccessMessage] = useState(null)
+  const { showSuccessMessage, showErrorMessage } = showMessages(setSuccessMessage, setErrorMessage)
 
 
   useEffect(() => {
@@ -38,20 +38,6 @@ const App = () => {
   }, [])
 
 
-  const showSuccessMessage = (message) => {
-    setSuccessMessage(message)
-    setTimeout(() => {
-      setSuccessMessage(null)
-    }, 3000)
-  }
-
-
-  const showErrorMessage = (message) => {
-    setErrorMessage(message)
-    setTimeout(() => {
-      setErrorMessage(null)
-    }, 3000)
-  }
 
 
   const handleLogout = async (event) => {
@@ -85,7 +71,6 @@ const App = () => {
       })
   }
 
-
   const loginView = () => {
     return (
       <div>
@@ -98,7 +83,6 @@ const App = () => {
 
 
   const blogFormRef = useRef()
-
 
   const addBlog = (blogObject) => {
     blogFormRef.current.toggleVisibility()
@@ -114,24 +98,6 @@ const App = () => {
       })
   }
 
-  const removeBlog = (blogObject) => {
-    const blogId = blogObject.id
-    const blogTitle = blogObject.title
-
-    if (window.confirm(`Remove ${blogTitle}?`)) {
-
-      blogService
-        .remove(blogId)
-        .then(() => {
-          showSuccessMessage(`You removed blog "${blogTitle}"`)
-          setBlogs(blogs.filter(n => n.id !== blogId))
-        })
-        .catch(error => {
-          showErrorMessage('You cannot remove blogs added by another user: ' + error.response.data.error)
-        })
-
-    }
-  }
 
 
   const blogView = () => {
@@ -163,7 +129,6 @@ const App = () => {
     </div>
   )
 
-
   const showBlogs = () => {
     blogs.sort((a, b) => b.likes - a.likes)
 
@@ -175,10 +140,11 @@ const App = () => {
             <Blog
               key={blog.id}
               blog={blog}
+              blogs={blogs}
+              setBlogs={setBlogs}
+              user={user}
               showSuccessMessage={showSuccessMessage}
               showErrorMessage={showErrorMessage}
-              user={user}
-              removeBlog={removeBlog}
             />)
         }
 

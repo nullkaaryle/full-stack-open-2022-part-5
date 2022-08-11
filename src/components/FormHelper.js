@@ -2,12 +2,17 @@ import PropTypes from 'prop-types'
 
 // helper for buttons
 export const Button = (props) => (
+
   <button
     className={props.className}
     style={props.style}
     type={props.type}
-    onClick={props.onClick}>
+    onClick={props.onClick}
+    id={props.id}
+  >
+
     {props.text}
+
   </button>
 
 )
@@ -20,7 +25,9 @@ export const Input = (props) => (
       type={props.type}
       value={props.value}
       name={props.name}
-      onChange={props.onChange} />
+      onChange={props.onChange}
+      id={props.id}
+    />
   </p>
 )
 
