@@ -37,21 +37,26 @@ export const LoginForm = ({ loginHelper }) => {
       <form onSubmit={loginUser}>
 
         <Input
+          id='login-username'
           text='username: '
           type='text'
+          autoComplete='off'
           value={username}
-          name='Username'
+          name='username'
           onChange={handleUsernameChange} />
 
         <Input
+          id='login-password'
           text='password: '
           type='password'
+          autoComplete='off'
           value={password}
-          name='Password'
+          name='password'
           onChange={handlePasswordChange}
         />
 
         <Button
+          id='login-button'
           style={buttonStyle}
           type='submit'
           text='login'

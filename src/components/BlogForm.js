@@ -50,6 +50,7 @@ export const BlogForm = ({ createBlog }) => {
       <form onSubmit={addBlog}>
 
         <Input
+          id='blogform-title'
           text='title: '
           type='text'
           value={title}
@@ -58,6 +59,7 @@ export const BlogForm = ({ createBlog }) => {
         />
 
         <Input
+          id='blogform-author'
           text='author: '
           type='text'
           value={author}
@@ -66,6 +68,7 @@ export const BlogForm = ({ createBlog }) => {
         />
 
         <Input
+          id='blogform-url'
           text='url: '
           type='text'
           value={url}
@@ -74,6 +77,7 @@ export const BlogForm = ({ createBlog }) => {
         />
 
         <Button
+          id='blogform-button'
           style={buttonStyle}
           type='submit'
           text='SAVE BLOG'

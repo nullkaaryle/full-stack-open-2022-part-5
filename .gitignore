@@ -3,6 +3,7 @@ node_modules
 
 # testing
 coverage
+cypress/videos/
 
 # production
 
@@ -10,7 +11,7 @@ coverage
 # local
 .dev
 
-# osx 
+# osx
 .DS_Store
 
 # dotenv

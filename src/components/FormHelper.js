@@ -27,6 +27,7 @@ export const Input = (props) => (
       name={props.name}
       onChange={props.onChange}
       id={props.id}
+      autoComplete={props.autoComplete}
     />
   </p>
 )

@@ -110,7 +110,10 @@ const App = () => {
         </Togglable>
 
         <Togglable buttonLabel='SHOW ALL BLOGS'>
-          {showBlogs()}
+          {blogs.length === 0 ?
+            'Sorry, no blogs added at the moment' :
+            showBlogs()
+          }
         </Togglable>
 
       </div >
@@ -120,12 +123,16 @@ const App = () => {
 
   const showLoggedUser = () => (
     <div>
+
       {user.name} logged in {' '}
+
       <Button
         style={{ cursor: 'pointer' }}
         type='button'
         onClick={handleLogout}
-        text='LOGOUT' />
+        text='LOGOUT'
+      />
+
     </div>
   )
 
