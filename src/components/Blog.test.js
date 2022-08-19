@@ -117,13 +117,13 @@ describe('TESTS FOR COMPONENTS: BLOG, BLOGDETAILS AND BLOGFORM', () => {
   })
 
 
-  test('submitting the blog form calls blog creation function once', async () => {
+  test('submitting the blog form calls addBlog function once', async () => {
 
     const mockHandler = jest.fn()
 
     render(
       <BlogForm
-        createBlog={mockHandler}
+        addBlog={mockHandler}
       />
     )
 

@@ -32,6 +32,12 @@ export const Input = (props) => (
   </p>
 )
 
+
+// some properties are required properties for Button and Input
+// it helps to use the components correctly.
+// If for example some Button component is missing text property,
+// then the button is rendered without any text (not good)
+// a warning is printed in console: "Warning: Failed prop type..."
 Button.propTypes = {
   text: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired

@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import { Button, Input } from './FormHelper'
 
-export const LoginForm = ({ loginHelper }) => {
+// Returns the login form where user can fill in login credentials.
+// Uses button and input helpers from FormHelper component
+// The LoginForm uses state to track the user inputs (typing to fields).
+// loginUser is passed as property / parameter.
+export const LoginForm = ({ loginUser }) => {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -14,10 +18,11 @@ export const LoginForm = ({ loginHelper }) => {
     setPassword(event.target.value)
   }
 
-  const loginUser = (event) => {
+  // loginUser is defined in App
+  const signIn = (event) => {
     event.preventDefault()
 
-    loginHelper({
+    loginUser({
       username: username,
       password: password
     })
@@ -30,11 +35,14 @@ export const LoginForm = ({ loginHelper }) => {
     cursor: 'pointer'
   }
 
+  // renders header "Login"
+  // and under it the input fields for username and password
+  // and the button that submits the form with text 'LOGIN'
   return (
     <div>
       <h2>Login</h2>
 
-      <form onSubmit={loginUser}>
+      <form onSubmit={signIn}>
 
         <Input
           id='login-username'
@@ -59,7 +67,7 @@ export const LoginForm = ({ loginHelper }) => {
           id='login-button'
           style={buttonStyle}
           type='submit'
-          text='login'
+          text='LOGIN'
         />
 
       </form>

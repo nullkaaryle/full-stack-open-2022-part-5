@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import { Button, Input } from './FormHelper'
 
-export const BlogForm = ({ createBlog }) => {
+// Returns the blog form where user can fill in details of new blog.
+// Uses button and input helpers from FormHelper component
+// The BlogForm uses state to track the user inputs (typing to fields).
+// addBlog is passed as property/parameter.
+export const BlogForm = ({ addBlog }) => {
 
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
@@ -25,10 +29,11 @@ export const BlogForm = ({ createBlog }) => {
     setUrl('')
   }
 
-  const addBlog = (event) => {
+  // addBlog is defined in App
+  const saveBlog = (event) => {
     event.preventDefault()
 
-    createBlog({
+    addBlog({
       title: title,
       author: author,
       url: url
@@ -47,7 +52,7 @@ export const BlogForm = ({ createBlog }) => {
 
       <h3>Please fill all fields</h3>
 
-      <form onSubmit={addBlog}>
+      <form onSubmit={saveBlog}>
 
         <Input
           id='blogform-title'

@@ -25,24 +25,3 @@ export const SuccessNotification = ({ message }) => {
     )
   }
 }
-
-
-export const showMessages = (setSuccessMessage, setErrorMessage) => {
-
-  const showSuccessMessage = (message) => {
-    setSuccessMessage(message)
-    setTimeout(() => {
-      setSuccessMessage(null)
-    }, 3000)
-  }
-
-
-  const showErrorMessage = (message) => {
-    setErrorMessage(message)
-    setTimeout(() => {
-      setErrorMessage(null)
-    }, 3000)
-  }
-
-  return { showSuccessMessage, showErrorMessage }
-}

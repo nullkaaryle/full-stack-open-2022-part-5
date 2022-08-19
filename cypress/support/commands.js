@@ -1,5 +1,4 @@
 // custom commands for cypress
-// read more here: https://on.cypress.io/custom-commands
 
 Cypress.Commands.add('resetDatabase', () => {
   cy.request('POST', 'http://localhost:3001/api/testing/reset')

@@ -130,8 +130,14 @@ describe('BLOGLIST APP', function () {
         cy.contains('Likes: 2').should('not.exist')
       })
 
-
-      it('blog can be removed', function () {
+      // This feature in frontend has a window confirmation dialog box
+      // popping up, when the user wants to remove a blog.
+      // Cypress will auto accept these confirmations,
+      // so no need to add "click the OK button" to tests,
+      // if want to test only the OK option.
+      // If want to test canceling from confirmation
+      // cypress app events is used to set confirmation to false
+      it.only('blog can be removed', function () {
         cy.contains('SHOW ALL BLOGS').click()
         cy.contains('First class tests').click()
         cy.contains('This blog was added by: Timothy Testson')
